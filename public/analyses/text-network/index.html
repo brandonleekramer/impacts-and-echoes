@@ -214,7 +214,7 @@ $(document).ready(function(){
 
 
 <p><img src="/text-network-final.svg#center" /></p>
-<p>In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used <a href="https://www.tidytextmining.com/">tidytext</a> – a package developed for natural language processing in the <a href="https://www.r-project.org/">R open-source software language</a> – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of common words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.</p>
+<p>In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used <a href="https://www.tidytextmining.com/">tidytext</a> – a package developed for natural language processing in the <a href="https://www.r-project.org/">R open-source software language</a> – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of stop words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.</p>
 <p>Before delving into those results, here are the 10 most frequently occuring words in the WHC Report:</p>
 <pre><code>## # A tibble: 12,779 x 2
 ##    word      count
@@ -230,7 +230,7 @@ $(document).ready(function(){
 ##  9 federal     454
 ## 10 systems     449
 ## # … with 12,769 more rows</code></pre>
-<p>Not surprisingly, we see several terms that we expected to see, including food, nutrition and health. We also see discussion of various policy initiatives in the top-25 terms (programs, schools, education, recommendation and services). The high count in these terms tell us that the WHC Report placed a great deal of importance on re-educating the public about what they were eating as well as how they were distributing to food to different populations. More specifically, the WHC Report discussed the impact that future policies would have on children - a term we also see mentioned in the top-25 words mentioned. Now, let’s look at the top-10 most commonly occuring set of words (or bigrams)…</p>
+<p>Not surprisingly, we see several terms that we expected to see, including food, nutrition and health. We also see discussion of various policy initiatives in the top-10 terms (programs, schools, education, recommendation and services). The high count in these terms tell us that the WHC Report placed a great deal of importance on re-educating the public about what they were eating as well as how they were distributing to food to different populations. More specifically, the WHC Report discussed the impact that future policies would have on children - the 25th most commonly occurring term (not shown here). Now, let’s look at the top-10 most commonly occuring bigrams…</p>
 <pre><code>## # A tibble: 78,515 x 3
 ##    word1      word2     count
 ##    &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt;

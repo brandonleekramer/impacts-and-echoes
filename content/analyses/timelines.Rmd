@@ -1,5 +1,5 @@
 ---
-title: "Interactive Timelines of Nutrition, Food and Health"
+title: "Interactive Timeline of Nutrition, Food and Health"
 author: "Cathie Wotecki, Brandon Kramer, Vicki Lancaster and Sam Cohen"
 output: html_document
 ---
@@ -10,11 +10,11 @@ for (pkg in c("ggplot2", "scales", "lubridate", "timevis", "googleVis",
               "tidyverse", "webshot")) {library(pkg, character.only = TRUE)}
 ```
 
-Next, we decided to establish a basic timeline of major events in the nutrition sciences over time. We decided to break this down into three distinct timelines based on science, politics and the social.
+The main goal of Dr. Woteki's conference speech and our team's subsequent paper in the *Annual Review of Nutrition* was to provide a historical overview of important events both before and after the 1969 White House Conference on Food, Nutrition and Health by looking more closely at five general domains: the social environment, the food environment, nutrition science, public health data, and policy events. Needless to say, this was an ambitious task that required research of countless archival resources to decide which events we would discuss given the scope of our paper. To solve this dilemma, our team split up the five domains and collaborated to create a database of notable events from each domain. After creating this database, we visualized those events using interactive timelines in [timevis](https://github.com/daattali/timevis) and then narrowed our focus to discuss specific events in the final manuscript. 
 
-**Here is the science timeline...**
+Below, we share a visualization that combines the major events of these five domains into one interactive timeline. In this visual, you can see the five domains on the lefthand side with a timeline of conference-specific events near the bottom. You'll also notice that there are two kinds of events: those that happened in a specific year, which have a line connecting down to that year on the bottom of the timeline, and those that span a longer period of time. When you click on any box in the timeline, it will turn yellow and, for the events that fall into a specific year, you'll also notice that the line connecting that box to a specific year also turns yellow. While weren't able to include all of the major events in each domain, we hope that having these notable events in one spot will provide a helpful supplement to use while reading our paper.
 
-```{r science timeline, echo=FALSE, warning=FALSE, message=FALSE, fig.width=9.5, fig.height=2}
+```{r science timeline, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE, fig.width=9.5, fig.height=2}
 setwd("~/Documents/Nutrition/UVA-SDAD/impacts-and-echoes/data")
 timeline_data <- read_csv("interactive_timeline_data - final_timeline.csv")
 
@@ -22,28 +22,24 @@ science_timeline <- timeline_data %>%
   filter(domain == "Science" )
 
 timevis(science_timeline)
+?timevis
+
+
 ```
 
-
-**Here is the political timeline...** 
-
-```{r policy timeline, echo=FALSE, warning=FALSE, message=FALSE, fig.width=9.5, fig.height=3}
+```{r policy timeline, include=FALSE, echo=FALSE, warning=FALSE, message=FALSE, fig.width=9.5, fig.height=3}
 policy_timeline <- timeline_data %>% 
    filter(domain == "Policy")
 
 timevis(policy_timeline)
 ```
 
-**Here is the social timeline...** 
-
-```{r social events timeline, echo=FALSE, fig.height=3, fig.width=9.5, message=FALSE, warning=FALSE}
+```{r social events timeline, include=FALSE, echo=FALSE, fig.height=3, fig.width=9.5, message=FALSE, warning=FALSE}
 social_timeline <- timeline_data %>% 
   filter(domain == "Social")
 
 timevis(social_timeline)
 ```
-
-**And here is a summarized or selective timeline of events...** 
 
 ```{r general timeline, echo=FALSE, fig.width=9.5, fig.height=10.5}
 summarized_timeline <- timeline_data %>% 

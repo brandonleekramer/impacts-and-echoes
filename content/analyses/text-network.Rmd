@@ -12,7 +12,7 @@ knitr::opts_knit$set(root.dir = "~/Documents/Nutrition")
 for (pkg in c("tidyverse", "igraph", "bibliometrix", "tidytext", "ggplot2", "ggraph", "widyr", "plotly", "stringi", "pdftools", "SnowballC")) {library(pkg, character.only = TRUE)}
 ```
 
-In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used [tidytext](https://www.tidytextmining.com/) – a package developed for natural language processing in the [R open-source software language](https://www.r-project.org/) – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of common words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.
+In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used [tidytext](https://www.tidytextmining.com/) – a package developed for natural language processing in the [R open-source software language](https://www.r-project.org/) – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of stop words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.
 
 Before delving into those results, here are the 10 most frequently occuring words in the WHC Report:
 
@@ -87,7 +87,7 @@ word_counts <- conference_data %>%
 
 word_counts 
 ```
-Not surprisingly, we see several terms that we expected to see, including food, nutrition and health. We also see discussion of various policy initiatives in the top-25 terms (programs, schools, education, recommendation and services). The high count in these terms tell us that the WHC Report placed a great deal of importance on re-educating the public about what they were eating as well as how they were distributing to food to different populations. More specifically, the WHC Report discussed the impact that future policies would have on children - a term we also see mentioned in the top-25 words mentioned. Now, let's look at the top-10 most commonly occuring set of words (or bigrams)...
+Not surprisingly, we see several terms that we expected to see, including food, nutrition and health. We also see discussion of various policy initiatives in the top-10 terms (programs, schools, education, recommendation and services). The high count in these terms tell us that the WHC Report placed a great deal of importance on re-educating the public about what they were eating as well as how they were distributing to food to different populations. More specifically, the WHC Report discussed the impact that future policies would have on children - the 25th most commonly occurring term (not shown here). Now, let's look at the top-10 most commonly occuring bigrams...
 
 ```{r bigrams, echo=FALSE, rows.print=25}
 conference_bigrams <- conference_data  %>%

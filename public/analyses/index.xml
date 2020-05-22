@@ -11,14 +11,12 @@
     
     
     <item>
-      <title>Interactive Timelines of Nutrition, Food and Health</title>
+      <title>Interactive Timeline of Nutrition, Food and Health</title>
       <link>/analyses/timelines/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/analyses/timelines/</guid>
-      <description>Next, we decided to establish a basic timeline of major events in the nutrition sciences over time. We decided to break this down into three distinct timelines based on science, politics and the social.
-Here is the science timeline…
-+ -   {&#34;x&#34;:{&#34;items&#34;:[{&#34;id&#34;:&#34;10&#34;,&#34;content&#34;:&#34;Framingham Heart Study&#34;,&#34;start&#34;:&#34;1948&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;,&#34;source&#34;:&#34;Wikipedia&#34;},{&#34;id&#34;:&#34;11&#34;,&#34;content&#34;:&#34;Household Food Consumption Survey&#34;,&#34;start&#34;:&#34;1965&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;},{&#34;id&#34;:&#34;12&#34;,&#34;content&#34;:&#34;Ten State Nutrition Survey&#34;,&#34;start&#34;:&#34;1968&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;},{&#34;id&#34;:&#34;13&#34;,&#34;content&#34;:&#34;National Health and Nutrition Examiniation Survey&#34;,&#34;start&#34;:&#34;1971&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;,&#34;source&#34;:&#34;Wikipedia&#34;},{&#34;id&#34;:&#34;14&#34;,&#34;content&#34;:&#34;Nutrition research shifts to \&#34;omics\&#34; research&#34;,&#34;start&#34;:&#34;1990&#34;,&#34;end&#34;:&#34;2019&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;},{&#34;id&#34;:&#34;15&#34;,&#34;content&#34;:&#34;Scientific replication crisis&#34;</description>
+      <description>The main goal of Dr. Woteki’s conference speech and our team’s subsequent paper in the Annual Review of Nutrition was to provide a historical overview of important events both before and after the 1969 White House Conference on Food, Nutrition and Health by looking more closely at five general domains: the social environment, the food environment, nutrition science, public health data, and policy events.</description>
     </item>
     
     <item>
@@ -27,7 +25,7 @@ Here is the science timeline…
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/analyses/text-network/</guid>
-      <description>In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used tidytext – a package developed for natural language processing in the R open-source software language – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of common words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.</description>
+      <description>In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used tidytext – a package developed for natural language processing in the R open-source software language – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of stop words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.</description>
     </item>
     
   </channel>
