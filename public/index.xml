@@ -41,22 +41,20 @@ Here is the science timeline…
     
     <item>
       <title>Text Network of 1969 WHC Report</title>
-      <link>/analyses/text-network/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/analyses/text-network/</guid>
-      <description>In this paper,…
-First, we decided to get a basic idea of what was talked about in the 1969 White House Conference. To do this, we did a basic word frequency count, examined the text for bigrams (i.e. the most commonly occuring words that arise next to each other in the text), and then graphed those bigram relations using network analysis.
-Here are the 10 most commonly occuring words…</description>
-    </item>
-    
-    <item>
-      <title>Text Network of 1969 WHC Report</title>
       <link>/text-network/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/text-network/</guid>
       <description>Coming soon&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Text Network of 1969 White House Conference Report</title>
+      <link>/analyses/text-network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/analyses/text-network/</guid>
+      <description>In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used tidytext – a package developed for natural language processing in the R open-source software language – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of common words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.</description>
     </item>
     
   </channel>

@@ -1,5 +1,5 @@
 ---
-title: "Text Network of 1969 WHC Report"
+title: "Text Network of 1969 White House Conference Report"
 author: "Brandon Kramer"
 output: html_document
 ---
@@ -12,13 +12,11 @@ knitr::opts_knit$set(root.dir = "~/Documents/Nutrition")
 for (pkg in c("tidyverse", "igraph", "bibliometrix", "tidytext", "ggplot2", "ggraph", "widyr", "plotly", "stringi", "pdftools", "SnowballC")) {library(pkg, character.only = TRUE)}
 ```
 
-In this paper,... 
+In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used [tidytext](https://www.tidytextmining.com/) – a package developed for natural language processing in the [R open-source software language](https://www.r-project.org/) – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of common words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.
 
-First, we decided to get a basic idea of what was talked about in the 1969 White House Conference. To do this, we did a basic word frequency count, examined the text for bigrams (i.e. the most commonly occuring words that arise next to each other in the text), and then graphed those bigram relations using network analysis.
+Before delving into those results, here are the 10 most frequently occuring words in the WHC Report:
 
-Here are the 10 most commonly occuring words...
-
-```{r pulling data and basic word count, warning=FALSE, message=FALSE} 
+```{r pulling data and basic word count, echo=FALSE, warning=FALSE, message=FALSE, rows.print=25} 
 setwd("~/Documents/Nutrition/Literature")
 text_data <- pdf_text("1969 WHC Report.pdf") %>% 
   readr::read_lines()
@@ -30,7 +28,8 @@ conference_data <- conference_data %>%
   anti_join(stop_words)
 
 my_stopwords <- tibble(word = c(as.character(1:6), 
-                                "1", "2", "3", "4", "tion", "pro", "7", "8", "378", "473", "11", "111", "iv", "ph", "m.d", "vi", "nutri"))
+                                "1", "2", "3", "4", "tion", "pro", "7", "8", 
+                                "378", "473", "11", "111", "iv", "ph", "m.d", "vi", "nutri"))
 conference_data <- conference_data %>% anti_join(my_stopwords)
 
 # recoding certain words 
@@ -83,19 +82,19 @@ conference_data <- conference_data %>%
   select(-word) %>% rename(word = term)
 
 word_counts <- conference_data %>%
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) %>% 
+  rename(count = n)
 
-word_counts %>% filter(word == "program" | word == "programs")
+word_counts 
 ```
+Not surprisingly, we see several terms that we expected to see, including food, nutrition and health. We also see discussion of various policy initiatives in the top-25 terms (programs, schools, education, recommendation and services). The high count in these terms tell us that the WHC Report placed a great deal of importance on re-educating the public about what they were eating as well as how they were distributing to food to different populations. More specifically, the WHC Report discussed the impact that future policies would have on children - a term we also see mentioned in the top-25 words mentioned. Now, let's look at the top-10 most commonly occuring set of words (or bigrams)...
 
-And the 10 most commonly occuring set of words (or bigrams)...
-
-```{r bigrams}
+```{r bigrams, echo=FALSE, rows.print=25}
 conference_bigrams <- conference_data  %>%
   unnest_tokens(bigram, word, token = "ngrams", n = 2)
 
-conference_bigrams %>%
-  count(bigram, sort = TRUE)
+#conference_bigrams %>%
+#  count(bigram, sort = TRUE)
 
 conference_separated <- conference_bigrams %>%
   separate(bigram, c("word1", "word2"), sep = " ")
@@ -105,14 +104,16 @@ bigrams_filtered <- conference_separated %>%
   filter(!word2 %in% stop_words$word)
 
 bigram_counts <- bigrams_filtered %>% 
-  count(word1, word2, sort = TRUE)
+  count(word1, word2, sort = TRUE) %>% 
+  rename(count = n); bigram_counts
 ```
 
-And here is the network of the bigram relations. In this network, nodes correspond to words and the ties between them refer to co-occurences. The strength of the ties is the number of times words co-occur in the 1969 White House Conference text. As you can see, the bulk of the document focuses on nutrition programs, including school lunch programs, food stamp programs, and nutrition education programs. 
+While we could explain these trends, we can see those relations more clearly in the text network. In this figure, *nodes* represent words in the WHC Report, *ties* between the nodes correspond to the number of times words co-occur adjacent to each other in that text, and the weight of the ties signifies with the number of times these words co-occur together in the Report.
 
-```{r text networks, fig.width=9, fig.height=7}
+```{r text networks, echo=FALSE, fig.width=9, fig.height=7}
 set.seed(1234)
 bigram_network <- bigram_counts %>%
+  rename(n = count) %>% 
   filter(n >= 15) %>%
   graph_from_data_frame() %>%
   ggraph(layout = "fr") +
@@ -122,17 +123,20 @@ bigram_network <- bigram_counts %>%
                  point.padding = unit(0.2, "lines")) + theme_void()
 bigram_network
 ```
+
+At the core of the network, the most prominent words include food, health, nutrition, school and programs. The central role of “food” in the report is not surprising, but it is quite notable that this word bridges the diverse, overlapping conceptual spheres of *social programs* (food-stamps, food-school-lunch-programs), *food education* (food-habits, food-education-programs), and *food industry* (food-services, food-delivery-systems, food-distribution, food-industry, food-production, fortified-food). More generally, the relations between *health education* (health-education, education-programs, training-programs, welfare-education, nutrition-information, nutrition-teaching, nutrition-knowledge) and the implementation of *social programs* centered around food, nutrition, and health. These central concepts were discussed at the conference proceedings, as evidenced by the links between the constellation of nodes at the graph’s core. A number of somewhat less central topics also surfaced, including the elimination of hunger and malnutrition (top-right) in addition to safety and regulation (surveillance-monitoring on the far right as well as food-safety and food-drug-administration on the far left). Lastly, in line with the provocations ignited by the *Hunger USA* documentary, there was also notable discussion of how hunger and malnutrition impacted marginalized groups like Native Americans, Alaska Natives, Puerto Ricans, Virgin Islanders, among other populations that were struggling with poverty more generally (seen at the top right of the graph).
+
 ```{r output as svg, echo=FALSE, eval=FALSE, include=FALSE}
-class(bigram_network)
+#class(bigram_network)
 #This actually save the plot in a image
-library(svglite)
-ggsave(file="bigram_network.svg", plot=image, width=10, height=8)
+#library(svglite)
+#ggsave(file="bigram_network.svg", plot=image, width=10, height=8)
 ```
 
 ```{r output to gephi, echo=FALSE, eval=FALSE, include=FALSE}
-whc_edgelist <- bigram_counts %>% 
-  rename(source = word1,target = word2,weight = n) %>% 
-  filter(weight >= 15)
+#whc_edgelist <- bigram_counts %>% 
+#  rename(source = word1,target = word2,weight = n) %>% 
+#  filter(weight >= 15)
 #write_csv(whc_edgelist, "whc-textnet-edgelist.csv")
 ```
 

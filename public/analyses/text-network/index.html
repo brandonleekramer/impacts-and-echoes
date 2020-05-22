@@ -3,13 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Text Network of 1969 WHC Report</title>
+        <title>Text Network of 1969 White House Conference Report</title>
         <link rel="canonical" href="/analyses/text-network/">
         <style>
 
     html body {
         font-family: 'Heebo', sans-serif;
-        background-color: #f5f5f5;
+        background-color: #ffffff;
     }
 
     :root {
@@ -113,7 +113,7 @@ $(document).ready(function(){
     
     
     
-    <meta property="og:title" content="Text Network of 1969 WHC Report">
+    <meta property="og:title" content="Text Network of 1969 White House Conference Report">
     <meta property="og:type" content="article">
       
       <meta name="twitter:card" content="summary">
@@ -138,7 +138,7 @@ $(document).ready(function(){
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand visible-xs" href="#">Text Network of 1969 WHC Report</a>
+                    <a class="navbar-brand visible-xs" href="#">Text Network of 1969 White House Conference Report</a>
                     <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -200,7 +200,7 @@ $(document).ready(function(){
       
     
 
-    <h4><a href="/analyses/text-network/">Text Network of 1969 WHC Report</a></h4>
+    <h4><a href="/analyses/text-network/">Text Network of 1969 White House Conference Report</a></h4>
     
     <h5></h5>
 
@@ -214,121 +214,40 @@ $(document).ready(function(){
 
 
 <p><img src="/text-network-final.svg#center" /></p>
-<p>In this paper,…</p>
-<p>First, we decided to get a basic idea of what was talked about in the 1969 White House Conference. To do this, we did a basic word frequency count, examined the text for bigrams (i.e. the most commonly occuring words that arise next to each other in the text), and then graphed those bigram relations using network analysis.</p>
-<p>Here are the 10 most commonly occuring words…</p>
-<pre class="r"><code>setwd(&quot;~/Documents/Nutrition/Literature&quot;)
-text_data &lt;- pdf_text(&quot;1969 WHC Report.pdf&quot;) %&gt;% 
-  readr::read_lines()
-conference_data &lt;- tibble(text = text_data)
-
-conference_data &lt;- conference_data %&gt;% 
-  unnest_tokens(word, text) %&gt;%
-  #mutate(word = wordStem(word)) %&gt;%  # for stemming
-  anti_join(stop_words)
-
-my_stopwords &lt;- tibble(word = c(as.character(1:6), 
-                                &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;tion&quot;, &quot;pro&quot;, &quot;7&quot;, &quot;8&quot;, &quot;378&quot;, &quot;473&quot;, &quot;11&quot;, &quot;111&quot;, &quot;iv&quot;, &quot;ph&quot;, &quot;m.d&quot;, &quot;vi&quot;, &quot;nutri&quot;))
-conference_data &lt;- conference_data %&gt;% anti_join(my_stopwords)
-
-# recoding certain words 
-conference_data &lt;- conference_data %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(program|programs)\\b&quot;), 
-                       yes = &quot;programs&quot;, no = word)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(stamp|stamps)\\b&quot;), 
-                       yes = &quot;stamps&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(school|schools)\\b&quot;), 
-                       yes = &quot;schools&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(system|systems)\\b&quot;), 
-                       yes = &quot;systems&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(sector|sectors)\\b&quot;), 
-                       yes = &quot;sectors&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(supply|supplies)\\b&quot;), 
-                       yes = &quot;systems&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(food|foods)\\b&quot;), 
-                       yes = &quot;food&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(policy|policies)\\b&quot;), 
-                       yes = &quot;policies&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(product|products)\\b&quot;), 
-                       yes = &quot;products&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(level|levels)\\b&quot;), 
-                       yes = &quot;levels&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(science|sciences)\\b&quot;), 
-                       yes = &quot;science&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(lunch|lunches)\\b&quot;), 
-                       yes = &quot;lunch&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(education|educational)\\b&quot;), 
-                       yes = &quot;education&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(nutrition|nutritional)\\b&quot;), 
-                       yes = &quot;nutrition&quot;, no = term)) %&gt;% 
-  mutate(term = ifelse(test = str_detect(string = word, 
-                       pattern = &quot;\\b(?i)(agency|agencies)\\b&quot;), 
-                       yes = &quot;agency&quot;, no = term)) %&gt;% 
-  select(-word) %&gt;% rename(word = term)
-
-word_counts &lt;- conference_data %&gt;%
-  count(word, sort = TRUE)
-
-word_counts %&gt;% filter(word == &quot;program&quot; | word == &quot;programs&quot;)</code></pre>
-<pre><code>## # A tibble: 1 x 2
-##   word         n
-##   &lt;chr&gt;    &lt;int&gt;
-## 1 programs  1518</code></pre>
-<p>And the 10 most commonly occuring set of words (or bigrams)…</p>
-<pre class="r"><code>conference_bigrams &lt;- conference_data  %&gt;%
-  unnest_tokens(bigram, word, token = &quot;ngrams&quot;, n = 2)
-
-conference_bigrams %&gt;%
-  count(bigram, sort = TRUE)</code></pre>
-<pre><code>## # A tibble: 78,515 x 2
-##    bigram                  n
-##    &lt;chr&gt;               &lt;int&gt;
-##  1 nutrition education   209
-##  2 schools lunch         180
-##  3 food stamps           173
-##  4 task force            168
-##  5 food nutrition        157
-##  6 washington d.c        144
-##  7 food service          139
-##  8 health education      111
-##  9 nutrition health      109
-## 10 public health         108
+<p>In the second section of our paper, we examined what policy makers discussed in the 1969 White House Conference. To garner some high-level insights, we used <a href="https://www.tidytextmining.com/">tidytext</a> – a package developed for natural language processing in the <a href="https://www.r-project.org/">R open-source software language</a> – to visualize a network of textual relations in the WHC Report. This process entails cleaning and preprocessing the textual data from the WHC Report (i.e. selective lemmatization and removal of common words), quantifying the number of unique words in the corpus, constructing bigrams based on how many times words co-occur adjacent to one another in the text, and then constructing a network of textual relations comprised of the nodes and word co-occurrences.</p>
+<p>Before delving into those results, here are the 10 most frequently occuring words in the WHC Report:</p>
+<pre><code>## # A tibble: 12,779 x 2
+##    word      count
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 food       2722
+##  2 nutrition  1894
+##  3 programs   1518
+##  4 health     1022
+##  5 schools     887
+##  6 education   821
+##  7 national    589
+##  8 panel       537
+##  9 federal     454
+## 10 systems     449
+## # … with 12,769 more rows</code></pre>
+<p>Not surprisingly, we see several terms that we expected to see, including food, nutrition and health. We also see discussion of various policy initiatives in the top-25 terms (programs, schools, education, recommendation and services). The high count in these terms tell us that the WHC Report placed a great deal of importance on re-educating the public about what they were eating as well as how they were distributing to food to different populations. More specifically, the WHC Report discussed the impact that future policies would have on children - a term we also see mentioned in the top-25 words mentioned. Now, let’s look at the top-10 most commonly occuring set of words (or bigrams)…</p>
+<pre><code>## # A tibble: 78,515 x 3
+##    word1      word2     count
+##    &lt;chr&gt;      &lt;chr&gt;     &lt;int&gt;
+##  1 nutrition  education   209
+##  2 schools    lunch       180
+##  3 food       stamps      173
+##  4 task       force       168
+##  5 food       nutrition   157
+##  6 washington d.c         144
+##  7 food       service     139
+##  8 health     education   111
+##  9 nutrition  health      109
+## 10 public     health      108
 ## # … with 78,505 more rows</code></pre>
-<pre class="r"><code>conference_separated &lt;- conference_bigrams %&gt;%
-  separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;), sep = &quot; &quot;)
-
-bigrams_filtered &lt;- conference_separated %&gt;%
-  filter(!word1 %in% stop_words$word) %&gt;%
-  filter(!word2 %in% stop_words$word)
-
-bigram_counts &lt;- bigrams_filtered %&gt;% 
-  count(word1, word2, sort = TRUE)</code></pre>
-<p>And here is the network of the bigram relations. In this network, nodes correspond to words and the ties between them refer to co-occurences. The strength of the ties is the number of times words co-occur in the 1969 White House Conference text. As you can see, the bulk of the document focuses on nutrition programs, including school lunch programs, food stamp programs, and nutrition education programs.</p>
-<pre class="r"><code>set.seed(1234)
-bigram_network &lt;- bigram_counts %&gt;%
-  filter(n &gt;= 15) %&gt;%
-  graph_from_data_frame() %&gt;%
-  ggraph(layout = &quot;fr&quot;) +
-  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = &quot;cyan4&quot;) +
-  geom_node_point(size = 3.5) +
-  geom_node_text(aes(label = name), repel = TRUE, 
-                 point.padding = unit(0.2, &quot;lines&quot;)) + theme_void()
-bigram_network</code></pre>
+<p>While we could explain these trends, we can see those relations more clearly in the text network. In this figure, <em>nodes</em> represent words in the WHC Report, <em>ties</em> between the nodes correspond to the number of times words co-occur adjacent to each other in that text, and the weight of the ties signifies with the number of times these words co-occur together in the Report.</p>
 <p><img src="/analyses/text-network_files/figure-html/text%20networks-1.png" width="864" /></p>
+<p>At the core of the network, the most prominent words include food, health, nutrition, school and programs. The central role of “food” in the report is not surprising, but it is quite notable that this word bridges the diverse, overlapping conceptual spheres of <em>social programs</em> (food-stamps, food-school-lunch-programs), <em>food education</em> (food-habits, food-education-programs), and <em>food industry</em> (food-services, food-delivery-systems, food-distribution, food-industry, food-production, fortified-food). More generally, the relations between <em>health education</em> (health-education, education-programs, training-programs, welfare-education, nutrition-information, nutrition-teaching, nutrition-knowledge) and the implementation of <em>social programs</em> centered around food, nutrition, and health. These central concepts were discussed at the conference proceedings, as evidenced by the links between the constellation of nodes at the graph’s core. A number of somewhat less central topics also surfaced, including the elimination of hunger and malnutrition (top-right) in addition to safety and regulation (surveillance-monitoring on the far right as well as food-safety and food-drug-administration on the far left). Lastly, in line with the provocations ignited by the <em>Hunger USA</em> documentary, there was also notable discussion of how hunger and malnutrition impacted marginalized groups like Native Americans, Alaska Natives, Puerto Ricans, Virgin Islanders, among other populations that were struggling with poverty more generally (seen at the top right of the graph).</p>
 </div>
 
     
