@@ -10,7 +10,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "public/"]
     post = "/:year/:month/:day/:slug/"
 
 [params]
-    author = "Nate Day"
+    author = "Brandon Kramer"
     description = "Impacts and Echoes: The Lasting Influence of the 1969 White House Conference on Food, Nutrition and Health"
     logo = "favicon/ARN-logo.jpeg"
     githubUsername = "brandonleekramer"
@@ -31,21 +31,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "public/"]
     url = "/description/"
     name = "Project Description"
     weight = 2
-
-#[[menu.main]]
-#    url = "/timelines.html/"
-#    name = "Timelines"
-#    weight = 3
-   
-#[[menu.main]]
-#    url = "/text-network/"
-#    name = "Text Network"
-#    weight = 4
-
-#[[menu.main]]
-#    url = "/text-analysis/"
-#    name = "Text Analysis"
-#    weight = 5
     
 [[menu.main]]
     url = "/analyses/"
