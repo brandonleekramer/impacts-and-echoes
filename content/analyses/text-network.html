@@ -1,0 +1,124 @@
+---
+title: "Text Network of 1969 WHC Report"
+author: "Brandon Kramer"
+output: html_document
+---
+
+
+
+<p><img src="/text-network-final.svg#center" /></p>
+<p>In this paper,…</p>
+<p>First, we decided to get a basic idea of what was talked about in the 1969 White House Conference. To do this, we did a basic word frequency count, examined the text for bigrams (i.e. the most commonly occuring words that arise next to each other in the text), and then graphed those bigram relations using network analysis.</p>
+<p>Here are the 10 most commonly occuring words…</p>
+<pre class="r"><code>setwd(&quot;~/Documents/Nutrition/Literature&quot;)
+text_data &lt;- pdf_text(&quot;1969 WHC Report.pdf&quot;) %&gt;% 
+  readr::read_lines()
+conference_data &lt;- tibble(text = text_data)
+
+conference_data &lt;- conference_data %&gt;% 
+  unnest_tokens(word, text) %&gt;%
+  #mutate(word = wordStem(word)) %&gt;%  # for stemming
+  anti_join(stop_words)
+
+my_stopwords &lt;- tibble(word = c(as.character(1:6), 
+                                &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;tion&quot;, &quot;pro&quot;, &quot;7&quot;, &quot;8&quot;, &quot;378&quot;, &quot;473&quot;, &quot;11&quot;, &quot;111&quot;, &quot;iv&quot;, &quot;ph&quot;, &quot;m.d&quot;, &quot;vi&quot;, &quot;nutri&quot;))
+conference_data &lt;- conference_data %&gt;% anti_join(my_stopwords)
+
+# recoding certain words 
+conference_data &lt;- conference_data %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(program|programs)\\b&quot;), 
+                       yes = &quot;programs&quot;, no = word)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(stamp|stamps)\\b&quot;), 
+                       yes = &quot;stamps&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(school|schools)\\b&quot;), 
+                       yes = &quot;schools&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(system|systems)\\b&quot;), 
+                       yes = &quot;systems&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(sector|sectors)\\b&quot;), 
+                       yes = &quot;sectors&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(supply|supplies)\\b&quot;), 
+                       yes = &quot;systems&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(food|foods)\\b&quot;), 
+                       yes = &quot;food&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(policy|policies)\\b&quot;), 
+                       yes = &quot;policies&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(product|products)\\b&quot;), 
+                       yes = &quot;products&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(level|levels)\\b&quot;), 
+                       yes = &quot;levels&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(science|sciences)\\b&quot;), 
+                       yes = &quot;science&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(lunch|lunches)\\b&quot;), 
+                       yes = &quot;lunch&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(education|educational)\\b&quot;), 
+                       yes = &quot;education&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(nutrition|nutritional)\\b&quot;), 
+                       yes = &quot;nutrition&quot;, no = term)) %&gt;% 
+  mutate(term = ifelse(test = str_detect(string = word, 
+                       pattern = &quot;\\b(?i)(agency|agencies)\\b&quot;), 
+                       yes = &quot;agency&quot;, no = term)) %&gt;% 
+  select(-word) %&gt;% rename(word = term)
+
+word_counts &lt;- conference_data %&gt;%
+  count(word, sort = TRUE)
+
+word_counts %&gt;% filter(word == &quot;program&quot; | word == &quot;programs&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   word         n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 programs  1518</code></pre>
+<p>And the 10 most commonly occuring set of words (or bigrams)…</p>
+<pre class="r"><code>conference_bigrams &lt;- conference_data  %&gt;%
+  unnest_tokens(bigram, word, token = &quot;ngrams&quot;, n = 2)
+
+conference_bigrams %&gt;%
+  count(bigram, sort = TRUE)</code></pre>
+<pre><code>## # A tibble: 78,515 x 2
+##    bigram                  n
+##    &lt;chr&gt;               &lt;int&gt;
+##  1 nutrition education   209
+##  2 schools lunch         180
+##  3 food stamps           173
+##  4 task force            168
+##  5 food nutrition        157
+##  6 washington d.c        144
+##  7 food service          139
+##  8 health education      111
+##  9 nutrition health      109
+## 10 public health         108
+## # … with 78,505 more rows</code></pre>
+<pre class="r"><code>conference_separated &lt;- conference_bigrams %&gt;%
+  separate(bigram, c(&quot;word1&quot;, &quot;word2&quot;), sep = &quot; &quot;)
+
+bigrams_filtered &lt;- conference_separated %&gt;%
+  filter(!word1 %in% stop_words$word) %&gt;%
+  filter(!word2 %in% stop_words$word)
+
+bigram_counts &lt;- bigrams_filtered %&gt;% 
+  count(word1, word2, sort = TRUE)</code></pre>
+<p>And here is the network of the bigram relations. In this network, nodes correspond to words and the ties between them refer to co-occurences. The strength of the ties is the number of times words co-occur in the 1969 White House Conference text. As you can see, the bulk of the document focuses on nutrition programs, including school lunch programs, food stamp programs, and nutrition education programs.</p>
+<pre class="r"><code>set.seed(1234)
+bigram_network &lt;- bigram_counts %&gt;%
+  filter(n &gt;= 15) %&gt;%
+  graph_from_data_frame() %&gt;%
+  ggraph(layout = &quot;fr&quot;) +
+  geom_edge_link(aes(edge_alpha = n, edge_width = n), edge_colour = &quot;cyan4&quot;) +
+  geom_node_point(size = 3.5) +
+  geom_node_text(aes(label = name), repel = TRUE, 
+                 point.padding = unit(0.2, &quot;lines&quot;)) + theme_void()
+bigram_network</code></pre>
+<p><img src="/analyses/text-network_files/figure-html/text%20networks-1.png" width="864" /></p>

@@ -17,6 +17,12 @@ main {
     max-width: 750px;
 }
 
+img[
+    src*='#center'] { 
+    display: block;
+    margin: auto;
+}
+
 /*footer*/
 
 .copyright {

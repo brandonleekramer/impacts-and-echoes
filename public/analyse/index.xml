@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Analyses on Wotecki et al. (2020) - Annual Review of Nutrition - Supplementary Materials</title>
+    <link>/analyse/</link>
+    <description>Recent content in Analyses on Wotecki et al. (2020) - Annual Review of Nutrition - Supplementary Materials</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/analyse/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Interactive Timelines of Nutrition, Food and Health</title>
+      <link>/analyse/timelines/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/analyse/timelines/</guid>
+      <description>Next, we decided to establish a basic timeline of major events in the nutrition sciences over time. We decided to break this down into three distinct timelines based on science, politics and the social.
+Here is the science timeline…
++ -   {&#34;x&#34;:{&#34;items&#34;:[{&#34;id&#34;:&#34;10&#34;,&#34;content&#34;:&#34;Framingham Heart Study&#34;,&#34;start&#34;:&#34;1948&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;,&#34;source&#34;:&#34;Wikipedia&#34;},{&#34;id&#34;:&#34;11&#34;,&#34;content&#34;:&#34;Household Food Consumption Survey&#34;,&#34;start&#34;:&#34;1965&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;},{&#34;id&#34;:&#34;12&#34;,&#34;content&#34;:&#34;Ten State Nutrition Survey&#34;,&#34;start&#34;:&#34;1968&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;},{&#34;id&#34;:&#34;13&#34;,&#34;content&#34;:&#34;National Health and Nutrition Examiniation Survey&#34;,&#34;start&#34;:&#34;1971&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;,&#34;source&#34;:&#34;Wikipedia&#34;},{&#34;id&#34;:&#34;14&#34;,&#34;content&#34;:&#34;Nutrition research shifts to \&#34;omics\&#34; research&#34;,&#34;start&#34;:&#34;1990&#34;,&#34;end&#34;:&#34;2019&#34;,&#34;group1&#34;:&#34;3&#34;,&#34;group&#34;:&#34;3&#34;,&#34;groups&#34;:&#34;3&#34;,&#34;final&#34;:&#34;final&#34;,&#34;domain&#34;:&#34;Science&#34;},{&#34;id&#34;:&#34;15&#34;,&#34;content&#34;:&#34;Scientific replication crisis&#34;</description>
+    </item>
+    
+  </channel>
+</rss>

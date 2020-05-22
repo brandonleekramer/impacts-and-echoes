@@ -1,0 +1,66 @@
+---
+title: "Interactive Timelines of Nutrition, Food and Health"
+author: "Cathie Wotecki, Brandon Kramer, Vicki Lancaster and Sam Cohen"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+rm(list = ls())
+for (pkg in c("ggplot2", "scales", "lubridate", "timevis", "googleVis", 
+              "tidyverse", "webshot")) {library(pkg, character.only = TRUE)}
+```
+
+Next, we decided to establish a basic timeline of major events in the nutrition sciences over time. We decided to break this down into three distinct timelines based on science, politics and the social.
+
+**Here is the science timeline...**
+
+```{r science timeline, echo=FALSE, warning=FALSE, message=FALSE, fig.width=9.5, fig.height=2}
+setwd("~/Documents/Nutrition/UVA-SDAD/impacts-and-echoes/data")
+timeline_data <- read_csv("interactive_timeline_data - final_timeline.csv")
+
+science_timeline <- timeline_data %>% 
+  filter(domain == "Science" )
+
+timevis(science_timeline)
+```
+
+
+**Here is the political timeline...** 
+
+```{r policy timeline, echo=FALSE, warning=FALSE, message=FALSE, fig.width=9.5, fig.height=3}
+policy_timeline <- timeline_data %>% 
+   filter(domain == "Policy")
+
+timevis(policy_timeline)
+```
+
+**Here is the social timeline...** 
+
+```{r social events timeline, echo=FALSE, fig.height=3, fig.width=9.5, message=FALSE, warning=FALSE}
+social_timeline <- timeline_data %>% 
+  filter(domain == "Social")
+
+timevis(social_timeline)
+```
+
+**And here is a summarized or selective timeline of events...** 
+
+```{r general timeline, echo=FALSE, fig.width=9.5, fig.height=10.5}
+summarized_timeline <- timeline_data %>% 
+  filter(final == "final")  
+plot <- timevis(summarized_timeline, 
+        groups = data.frame(id = 1:6, content = c("Social", "Food", "Science", 
+                                                  "Health", "Policy", "Conference")))
+plot 
+```
+
+```{r, fig.width=7, fig.height=9, include = FALSE}
+#setwd("~/Documents/Nutrition/UVA-SDAD/impacts-and-echoes/data")
+#htmlwidgets::saveWidget(plot, "timeline.html", selfcontained = F)
+```
+
+```{r, fig.width=7, fig.height=9, include = FALSE}
+#setwd("~/Documents/Nutrition/impacts-and-echoes/docs")
+#webshot("https://brandonleekramer.github.io/impacts-and-echoes/timeline.html", file="timeline.pdf")
+```
+
