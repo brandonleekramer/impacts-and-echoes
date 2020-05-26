@@ -1,6 +1,6 @@
 ---
 title: "Interactive Timeline of Nutrition, Food and Health"
-author: "Cathie Wotecki, Brandon Kramer, Vicki Lancaster and Sam Cohen"
+author: "Cathie Woteki, Brandon Kramer, Vicki Lancaster and Sam Cohen"
 output: html_document
 ---
 
